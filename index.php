@@ -1,10 +1,9 @@
 <?php
-require('conexao.php');
+require('config.php');
 if(isset($_POST['email']) & isset($_POST['senha']) && !empty($_POST['email']) && !empty($_POST['senha']) ){
     $usr = $_POST['email'];
     $snh = SHA1($_POST['senha']);
-    $sql = "INSERT INTO usuarios (email, senha) VALUES ('$usr', '$snh')";
-    $conn->exec($sql);
+    mysqli_query($mysqli, "INSERT INTO usuarios (email, senha) VALUES ('$usr', '$snh')" );
     echo "Salvo com sucesso";
 }
 
