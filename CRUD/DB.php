@@ -15,7 +15,7 @@ class DB extends Tools{
         $senha = Tools::limpaPost($this->senha);
         $senha = password_hash($senha, PASSWORD_DEFAULT);
 
-        $sql = "SELECT * FROM usuarios WHERE email = '$email' and senha = '$senha'";
+        $sql = "SELECT * FROM usuarios WHERE email = '$email'";
         global $mysqli;
         $result = $mysqli->query($sql);
 
@@ -52,12 +52,21 @@ class DB extends Tools{
         global $mysqli;
         $result = $mysqli->query($sql);
         $usuario = $result->fetch_assoc();
-        $usuario = $usuario['id'];
+        $usuarioId = $usuario['id'];
+        $usuarioEmail = $usuario['email'];
+        $usuarioSenha =  $usuario['senha'];
 
-        $sql = "DELETE FROM usuarios WHERE id='$usuario' ";
-        $result = $mysqli->query($sql);
 
-        echo '<p>Usuario deletado com sucesso</p>';
+        if($usuarioEmail == $email && password_verify($senha, $usuarioSenha)){
+            $sql = "DELETE FROM usuarios WHERE id='$usuarioId' ";
+            $result = $mysqli->query($sql);
+            echo '<p>Usuário deletado com sucesso</p>';
+        } else {
+            echo '<p>Usuário inválido, digite novamente</p>';
+        }
+
+
+
 
     }
 }
