@@ -43,4 +43,21 @@ class DB extends Tools{
             echo "<p>Usuário incorreto. Cadastre-se ou digite novamente</p>";
         }
     }
+
+    public function delete(){
+        $email = Tools::limpaPost($this->email);
+        $senha = Tools::limpaPost($this->senha);
+
+        $sql = "SELECT * FROM usuarios WHERE email = '$email' LIMIT 1";
+        global $mysqli;
+        $result = $mysqli->query($sql);
+        $usuario = $result->fetch_assoc();
+        $usuario = $usuario['id'];
+
+        $sql = "DELETE FROM usuarios WHERE id='$usuario' ";
+        $result = $mysqli->query($sql);
+
+        echo '<p>Usuario deletado com sucesso</p>';
+
+    }
 }
