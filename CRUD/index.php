@@ -33,14 +33,20 @@ require_once('Tools.php');
                 <input name="senha" type="password" class="form-control" id="exampleInputPassword1">
             </div>
 
+            <!-- inserir -->
             <?php
             if (isset($_POST['email']) && isset($_POST['senha'])) {
-                $tools = new Tools;
-                $email = $tools->limpaPost($_POST['email']);
-                $senha = $tools->limpaPost($_POST['senha']);
 
-                $db = new DB($email, $senha);
-                $db->insert();
+                if(!empty($_POST['email']) && !empty($_POST['senha'])){
+                    $email = $_POST['email'];
+                    $senha = $_POST['senha'];
+    
+                    $db = new DB($email, $senha);
+                    $db->insert();
+                } else {
+                    echo "<p>Preencha todos os campos!</p>";
+                }
+           
             }
             ?>
 

@@ -11,7 +11,9 @@ class DB extends Tools{
     ) {}
 
     public function insert() {
-        $sql = "SELECT * FROM usuarios WHERE email = '$this->email' and senha = '$this->senha'";
+        $email = Tools::limpaPost($this->email);
+        $senha = Tools::limpaPost($this->senha);
+        $sql = "SELECT * FROM usuarios WHERE email = '$email' and senha = '$senha'";
 
         global $mysqli;
         $result = $mysqli->query($sql);
