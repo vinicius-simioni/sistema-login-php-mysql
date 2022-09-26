@@ -13,13 +13,14 @@ class DB extends Tools{
     public function insert() {
         $email = Tools::limpaPost($this->email);
         $senha = Tools::limpaPost($this->senha);
-        $sql = "SELECT * FROM usuarios WHERE email = '$email' and senha = '$senha'";
+        $senha = password_hash($senha, PASSWORD_DEFAULT);
 
+        $sql = "SELECT * FROM usuarios WHERE email = '$email' and senha = '$senha'";
         global $mysqli;
         $result = $mysqli->query($sql);
 
         if(mysqli_num_rows($result) < 1){
-            mysqli_query($mysqli, "INSERT INTO usuarios (email, senha) VALUES ('$this->email', '$this->senha')" );
+            mysqli_query($mysqli, "INSERT INTO usuarios (email, senha) VALUES ('$email', '$senha')" );
             echo "<p>Salvo com sucesso</p>";
         } else {
             echo "<p>Usuário já existe</p>";
@@ -30,15 +31,16 @@ class DB extends Tools{
     public function login(){
         $email = Tools::limpaPost($this->email);
         $senha = Tools::limpaPost($this->senha);
-        $sql = "SELECT * FROM usuarios WHERE email = '$email' and senha = '$senha'";
 
+        $sql = "SELECT * FROM usuarios WHERE email = '$email' LIMIT 1";
         global $mysqli;
         $result = $mysqli->query($sql);
-        if(mysqli_num_rows($result) < 1){
-            echo "<p>Usuário incorreto. Cadastre-se ou digite novamente</p>";
-        } else {
+
+        $usuario = $result->fetch_assoc();
+        if(password_verify($senha, $usuario['senha'])){ 
             header('Location: sistema.php');
+        } else {
+            echo "<p>Usuário incorreto. Cadastre-se ou digite novamente</p>";
         }
     }
-
 }
