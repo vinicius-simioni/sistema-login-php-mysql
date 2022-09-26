@@ -27,4 +27,18 @@ class DB extends Tools{
 
     }
 
+    public function login(){
+        $email = Tools::limpaPost($this->email);
+        $senha = Tools::limpaPost($this->senha);
+        $sql = "SELECT * FROM usuarios WHERE email = '$email' and senha = '$senha'";
+
+        global $mysqli;
+        $result = $mysqli->query($sql);
+        if(mysqli_num_rows($result) < 1){
+            echo "<p>Usuário incorreto. Cadastre-se ou digite novamente</p>";
+        } else {
+            header('Location: sistema.php');
+        }
+    }
+
 }
