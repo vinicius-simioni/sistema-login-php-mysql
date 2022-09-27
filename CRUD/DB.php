@@ -47,7 +47,7 @@ class DB extends Tools
         $result = $mysqli->query($sql);
 
         $usuario = $result->fetch_assoc();
-        if (password_verify($senha, $usuario['senha'])) {
+        if (mysqli_num_rows($result) > 0 &&password_verify($senha, $usuario['senha'])) {
             session_start();
             $_SESSION['key'] = $usuario['senha'];
             header('Location: sistema.php');

@@ -25,11 +25,11 @@ require_once('Tools.php');
     <div class="container">
         <form method="POST">
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <label for="exampleInputEmail1" class="form-label">Email</label>
                 <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <label for="exampleInputPassword1" class="form-label">Senha</label>
                 <input name="senha" type="password" class="form-control" id="exampleInputPassword1">
             </div>
 
@@ -51,7 +51,8 @@ require_once('Tools.php');
             ?>
 
 
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-light">Login</button>
+            <a href="sistema.php" class="btn btn-light">Voltar</a>
         </form>
     </div>
 
