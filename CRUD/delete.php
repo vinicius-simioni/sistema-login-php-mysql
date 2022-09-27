@@ -51,7 +51,7 @@ require_once('Tools.php');
             ?>
 
 
-            <button type="submit" class="btn btn-light">Login</button>
+            <button type="submit" class="btn btn-light">Deletar</button>
             <a href="sistema.php" class="btn btn-light">Voltar</a>
         </form>
     </div>

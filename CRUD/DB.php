@@ -64,16 +64,22 @@ class DB extends Tools
         $sql = "SELECT * FROM usuarios WHERE email = '$email' LIMIT 1";
         global $mysqli;
         $result = $mysqli->query($sql);
-        $usuario = $result->fetch_assoc();
-        $usuarioId = $usuario['id'];
-        $usuarioEmail = $usuario['email'];
-        $usuarioSenha =  $usuario['senha'];
 
 
-        if ($usuarioEmail == $email && password_verify($senha, $usuarioSenha)) {
-            $sql = "DELETE FROM usuarios WHERE id='$usuarioId' ";
-            $result = $mysqli->query($sql);
-            echo '<p>Usuário deletado com sucesso</p>';
+        if (mysqli_num_rows($result) > 0){
+
+            $usuario = $result->fetch_assoc();
+            $usuarioId = $usuario['id'];
+            $usuarioEmail = $usuario['email'];
+            $usuarioSenha =  $usuario['senha'];
+
+            if ($usuarioEmail == $email && password_verify($senha, $usuarioSenha)) {
+                $sql = "DELETE FROM usuarios WHERE id='$usuarioId' ";
+                $result = $mysqli->query($sql);
+                echo '<p>Usuário deletado com sucesso</p>';
+
+            } 
+
         } else {
             echo '<p>Usuário inválido, digite novamente</p>';
         }
