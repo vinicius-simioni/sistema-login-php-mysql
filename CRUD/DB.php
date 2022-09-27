@@ -48,6 +48,8 @@ class DB extends Tools
 
         $usuario = $result->fetch_assoc();
         if (password_verify($senha, $usuario['senha'])) {
+            session_start();
+            $_SESSION['key'] = $usuario['senha'];
             header('Location: sistema.php');
         } else {
             echo "<p>Usuário incorreto. Cadastre-se ou digite novamente</p>";
