@@ -1,4 +1,4 @@
-# sistema-login-php
+# Sistema de Login PHP
 
 Estudo de sistema de login utilizando PHP, Bootstrap, HTML e MySQL.
 
